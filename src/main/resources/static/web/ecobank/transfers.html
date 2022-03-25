@@ -1,0 +1,330 @@
+<!doctype html>
+<!--
+	The7 by TEMPLATE STOCK
+	templatestock.co @templatestock
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="icon" type="image/x-icon" href="images/favicon.png">
+    <title>Ecobank - Cuentas</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/simplegrid.css">
+    <link rel="stylesheet" href="css/icomoon.css">
+    <link rel="stylesheet" href="css/lightcase.css">
+    <link rel="stylesheet" href="js/owl-carousel/owl.carousel.css" />
+    <link rel="stylesheet" href="js/owl-carousel/owl.theme.css" />
+    <link rel="stylesheet" href="js/owl-carousel/owl.transitions.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Google Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,900' rel='stylesheet'
+        type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+           <![endif]-->
+</head>
+<div id="app">
+
+    <body id="home">
+        <!-- Header -->
+        <header id="top-header" class="header-home">
+            <div class="grid">
+                <div class="col-1-1">
+                    <div class="content">
+                        <div class="logo-wrap">
+                            <a href="/web/ecobank/accounts.html" class="logo">The7</a>
+                        </div>
+                        <nav class="navigation">
+                            <input type="checkbox" id="nav-button">
+                            <label for="nav-button" onclick></label>
+                            <ul class="nav-container">
+                                <li><a href="/web/ecobank/accounts.html" class="current">Cuentas</a></li>
+                                <li><a href="/web/ecobank/cards.html">Tarjetas</a></li>
+                                <li><a href="/web/ecobank/transfers.html">Transferencias</a></li>
+                                <li><a href="/web/ecobank/loans.html">Préstamos</a></li>
+                                <li><a href="/web/ecobank/divisas.html">Divisas</a></li>
+                                <li><a v-on:click="signOut" id="btn-cerrar-sesion">Cerrar Sesión</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- End Header -->
+
+        <!-- Parallax Section -->
+        <div class="parallax-section parallax1 parallax-webs">
+            <div class="div-texto-info">
+                <h2 class="titulo-realizar-transferencias">Realizar transferencias</h2>
+                <p class="nombre-cliente">{{ firstName }} {{ lastName }}</p>
+            </div>
+        </div>
+        <!-- End Parallax Section -->
+
+
+        <!-- CurveUp -->
+        <svg class="curveUpColor" xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100"
+            viewBox="0 0 100 100" preserveAspectRatio="none">
+            <path d="M0 100 C 20 0 50 0 100 100 Z"></path>
+        </svg>
+
+        <!-- Services Section -->
+        <div class="wrap services-wrap" id="services">
+
+            <div class="container">
+                <div class="row mt-5">
+                    <div class="col offset-md-1">
+                        <div class="row mt-3">
+                            <div class="col-10">
+
+                                <div class="texto-transferencias">
+                                    <p class="texto-cuentas">Realizar una transferencia entre tus cuentas o hacia terceros</p>
+                                    <p class="texto-cuentas-disponibles">(Ante cualquier error por favor contacta a
+                                        soporte)</p>
+                                </div>
+
+                                <form class="mt-4">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="type" class="form-label">Tipo de cuenta:</label>
+                                            <select id="type" v-model="trasnferType" v-on:change="changedType"
+                                                class="form-select" aria-label="Default select example" required>
+                                                <option value="own">Entre cuentas propias</option>
+                                                <option value="third">Hacia cuentas de terceros</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-md">
+                                            <label for="origin" class="form-label">Cuenta de origen:</label>
+                                            <select id="origin" v-model="accountFromNumber" v-on:change="changedFrom"
+                                                class="form-select" aria-label="Default select example" required>
+                                                <option value="VIN">Selecciona una cuenta</option>
+                                                <option v-for="account in clientAccounts" v-bind:value="account.number">
+                                                    {{ account.number }} | balance: {{ account.balance }}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md">
+                                            <label for="to-account" class="form-label">Cuenta de destino:</label>
+                                            <template v-if="trasnferType == 'third'">
+                                                <input id="to-account" type="text" v-model="accountToNumber"
+                                                    class="form-control" placeholder="VIN000554"
+                                                    aria-label="to account">
+                                            </template>
+                                            <template v-if="trasnferType == 'own'">
+                                                <select id="to-account" v-model="accountToNumber" class="form-select"
+                                                    aria-label="Default select example" required>
+                                                    <option value="VIN">Selecciona una cuenta</option>
+                                                    <option v-for="account in clientAccountsTo"
+                                                        v-bind:value="account.number">{{ account.number }} | balance: {{
+                                                        account.balance }}</option>
+                                                </select>
+                                            </template>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-md-3">
+                                            <label for="amount" class="form-label">Monto</label>
+                                            <input id="amount" v-model="amount" type="number" class="form-control"
+                                                placeholder="VIN000554" aria-label="to account">
+                                        </div>
+                                        <div class="col-md">
+                                            <label for="description" class="form-label">Descripcion</label>
+                                            <input id="description" v-model="description" type="text"
+                                                class="form-control" placeholder="Pago de ..." aria-label="to account">
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn submit comment-submit"
+                                        v-on:click="checkTransfer">Transferir</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="confirModal" tabindex="-1" aria-labelledby="confirModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title label-confirmarTransferencia" id="confirModalLabel">Confirmar
+                                transferencia con OTP</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body text-confirmarTransferencia">
+                            Se ha enviado una clave de seguridad a su correo registrado en el sistema, ingresela para
+                            confirmar la transferencia
+                        </div>
+                        <div class="input-label-div">
+                            <label class="label-otpNumber">Ingrese el OTP</label>
+                            <input type="text" class="form-control input-otpNumber" v-model="otpNumber">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-sm btn-outline-secondary btn-cancelarTransferencia"
+                                data-bs-dismiss="modal">Cancelar</button>
+                            <button type="button" v-on:click="transfer"
+                                class="btn btn-sm btn-outline-success btn-confirmarTransferencia">Confirmar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal 2-->
+            <div class="modal fade" id="okModal" tabindex="-1" aria-labelledby="okModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="okModalLabel">Transacción completada!</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Tus fondos han sido transferidos con éxito! <i class="bi bi-check-circle-fill text-success"></i>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" v-on:click="finish" class="btn btn-sm btn-outline-success"
+                                data-bs-dismiss="modal">Aceptar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- End Service Section -->
+
+
+        <!-- CurveDown -->
+        <svg class="curveDownColor" xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100"
+            viewBox="0 0 100 100" preserveAspectRatio="none">
+            <path d="M0 0 C 50 100 80 100 100 0 Z"></path>
+        </svg>
+
+        <!-- Footer -->
+        <footer class="wrap">
+            <div class="grid grid-pad">
+                <div class="col-1-4">
+                    <div class="content">
+                        <div class="footer-widget">
+                            <h3>Acerca de nosotros</h3>
+                            <div class="textwidget">
+                                <p>ECOBANK tu alternativa Ecológica y económica.</p><br>
+                                <p>Somos el banco que piensa en las personas y en el medioambiente.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-1-4">
+                    <div class="content">
+                        <div class="footer-widget">
+                            <h3>Sitios de interés</h3>
+                            <div class="fwidget">
+                                <ul>
+                                    <li><a href="https://www.cmfchile.cl/educa/621/w3-propertyvalue-967.html">Educación
+                                            financiera</a></li>
+                                    <li><a href="https://datosmacro.expansion.com/">Datos Macro</a></li>
+                                    <li><a href="https://www.bolsadesantiago.com/">Bolsa de Santiago</a></li>
+                                    <li><a href="https://www.df.cl/">Diario financiero</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-1-4">
+                    <div class="content">
+                        <div class="footer-widget">
+                            <h3>Política de Privacidad y Uso.</h3>
+                            <div class="textwidget">
+                                <p> Defensoría del Cliente. BancoEstado cuenta con un Plan de Cumplimiento de la Ley
+                                    N°19.496, el cual establece Normas sobre Protección de los Derechos de los
+                                    Consumidores, conocida también como Ley del Consumidor o Ley SERNAC.</p>
+                                <br>
+                                <p> Infórmese sobre la garantía estatal de los depósitos en su Banco o en
+                                    www.cmfchile.cl. </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-1-4">
+                    <div class="content">
+                        <div class="footer-widget">
+                            <h3>ECOBANK</h3>
+                            <div class="flickr-widget">
+                                <ul class="flickr-list">
+                                    <li><a href="#0"><img src="images/flickr-widget/banco1.gif" alt=""></a></li>
+                                    <li><a href="#0"><img src="images/flickr-widget/banco7.jpg" alt=""></a></li>
+                                    <li><a href="#0"><img src="images/flickr-widget/banco4.jpg" alt=""></a></li>
+                                    <li><a href="#0"><img src="images/flickr-widget/banco5.jpg" alt=""></a></li>
+                                    <li><a href="#0"><img src="images/flickr-widget/banco6.jpg" alt=""></a></li>
+                                    <li><a href="#0"><img src="images/flickr-widget/banco-comercial.jpg" alt=""></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="social-footer">
+                <div class="grid grid-pad">
+                    <div class="col-1-1">
+                        <div class="content">
+                            <div class="social-set">
+                                <a href="#0"><i class="icon-facebook"></i></a>
+                                <a href="#0"><i class="icon-twitter"></i></a>
+                                <a href="#0"><i class="icon-linkedin2"></i></a>
+                                <a href="#0"><i class="icon-dribbble4"></i></a>
+                                <a href="#0"><i class="icon-instagram"></i></a>
+                            </div>
+                            <p class="source-org copyright">© 2022 | Todos los derechos reservados <a
+                                    href="http://templatestock.co">ECOBANK</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- End Footer -->
+
+        <div class="loader-overlay">
+            <div class="loader">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        </div>
+
+    </body>
+</div>
+<!-- JS -->
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
+<script src="../js/transfers.js"></script>
+<script src="js/jquery.js"></script>
+<script src="js/main.js"></script>
+<script src="js/mixitup.js"></script>
+<script src="js/smoothscroll.js"></script>
+<script src="js/jquery.nav.js"></script>
+<script src="js/owl-carousel/owl.carousel.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
+<script src="js/jquery.counterup.min.js"></script>
+<script src="js/lightcase.min.js"></script>
+
+</html>

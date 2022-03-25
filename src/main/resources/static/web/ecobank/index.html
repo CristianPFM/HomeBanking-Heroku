@@ -1,0 +1,821 @@
+<!doctype html>
+<!--
+	The7 by TEMPLATE STOCK
+	templatestock.co @templatestock
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Ecobank - Login</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.png">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/simplegrid.css">
+    <link rel="stylesheet" href="css/icomoon.css">
+    <link rel="stylesheet" href="css/lightcase.css">
+    <link rel="stylesheet" href="js/owl-carousel/owl.carousel.css" />
+    <link rel="stylesheet" href="js/owl-carousel/owl.theme.css" />
+    <link rel="stylesheet" href="js/owl-carousel/owl.transitions.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Google Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,900' rel='stylesheet'
+        type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+           <![endif]-->
+</head>
+<div id="app">
+
+    <body id="home">
+        <!-- Header -->
+        <header id="top-header" class="header-home">
+            <div class="grid">
+                <div class="col-1-1">
+                    <div class="content">
+                        <div class="logo-wrap">
+                            <a href="#0" class="logo">ECOBANK</a>
+                        </div>
+                        <nav class="navigation">
+                            <input type="checkbox" id="nav-button">
+                            <label for="nav-button" onclick></label>
+                            <ul class="nav-container">
+                                <li><a href="javascript:void(0)" class="" v-on:click="scrollToElement({behavior: 'smooth'}, 'curvaIndexLogin')">Iniciar Sesión</a></li>
+                                <li><a href="javascript:void(0)" v-on:click="registerUser()">Registrarse</a></li>
+                                <li><a href="javascript:void(0)" class="" v-on:click="scrollToElement({behavior: 'smooth'}, 'curveDown-login')">Quiénes Somos</a></li>
+                                <li><a href="javascript:void(0)" class="" v-on:click="scrollToElement({behavior: 'smooth'}, 'curveMapUpDiv')">Ubicación</a></li>
+                                <li><a href="javascript:void(0)" class="" v-on:click="scrollToElement({behavior: 'smooth'}, 'curveMapDown')">Contáctanos</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- End Header -->
+
+        <!-- Toasts -->
+        <div class="toast-container position-absolute p-3 top-0 end-0" id="toastPlacement">
+            <div id="danger-toast" data-bs-delay="2000" class="toast align-items-center text-white bg-danger border-0"
+                role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        {{ errorMsg }}
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                        aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Parallax Section -->
+        <div class="parallax-section parallax1">
+            <div class="grid grid-pad">
+                <div class="col-1-1 div-info-index">
+                    <div class="content content-header">
+                        <h2 class="titulo-index-1">SOMOS EL PRIMER BANCO</h2>
+                        <h2 class="titulo-index-2">ECO-FRIENDLY DE LA REGIÓN</h2>
+                        <p> Siempre pensamos en el cliente y en el medioambiente.</p>
+                        <!-- <a target="_blank" class="btn btn-ghost" href="#">Find Out More</a> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Parallax Section -->
+
+        <!-- CurveUp -->
+        <svg class="curveUpColor curveGrey curvaIndexLogin" xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100"
+            viewBox="0 0 100 100" preserveAspectRatio="none">
+            <path d="M0 100 C 20 0 50 0 100 100 Z"></path>
+        </svg>
+
+        <!-- Login Section -->
+        <div class="wrap contact grey login-section" id="contact login-section">
+            <div class="grid grid-pad grey" id="grid-div-login">
+                <h2>Iniciar sesión en ecobank</h2>
+                <div class="div-login">
+                    <div class="content contact-form" v-on:submit="signIn($event)">
+                        <form class="form">
+                            <input type="text" v-model="email" class="comment-email" placeholder="Correo electrónico"
+                                required>
+                            <input type="password" v-model="password" class="comment-password" placeholder="Contraseña"
+                                required>
+                            <input type="submit" value="Iniciar sesión" class="btn submit comment-submit">
+                            <button type="button" class="btn submit comment-submit btn-password-recover"
+                                v-on:click="passwordRecover()">Olvidé mi contraseña</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="textos-registrarse">
+                <h3>¿No tienes cuenta en Ecobank?</h3>
+                <h4>No te preocupes, registrate en menos de 5 minutos</h4>
+                <button type="button" class="btn submit comment-submit btn-registrarme"
+                    v-on:click="registerUser()">Registrarme</button>
+            </div>
+        </div>
+
+        <!-- Modal olvide contraseña 1 -->
+        <div class="modal fade" id="passwordRecoverModal" tabindex="-1" aria-labelledby="passwordRecoverModal"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content modal-recuperarClave">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="passwordRecoverModalLabel">Recupera tu contraseña</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div v-if="cargando == false">
+                            <span class="texto-recoverPassword-modal">Para recuperar tu contraseña ingresa tu Nombre y
+                                Correo registrados</span>
+                            <input type="text" v-model="nameRecover" class="modal-recoverPassword-name"
+                                placeholder="Nombre" required>
+                            <input type="email" v-model="emailRecover" class="modal-recoverPassword-email"
+                                placeholder="Correo electrónico" required>
+                        </div>
+                        <div v-else>
+                            <div class="loader-overlay loader-recuperar-contrasena">
+                                <div class="loader">
+                                    <div class="bar"></div>
+                                    <div class="bar"></div>
+                                    <div class="bar"></div>
+                                    <div class="bar"></div>
+                                    <div class="bar"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="text-cargando-clave">Cargando, espera por favor...</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-sm btn-outline-secondary btn-Registrarse-modal"
+                            data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" v-on:click="recoverPasswordOtp($event)"
+                            class="btn btn-sm btn-outline-success" :disabled="cargando">Recuperar contraseña</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal olvide contraseña 2 -->
+        <div class="modal fade" id="passwordRecoverModalOtpConfirmed" tabindex="-1"
+            aria-labelledby="passwordRecoverModalOtpConfirmed" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="passwordRecoverModalOtpConfirmedLabel">Ingresa los siguientes datos
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <span class="texto-recoverPassword-modal">Ahora ingresa tu correo, el código temporal enviado a
+                            tu correo y tu nueva contraseña</span>
+                        <input type="text" v-model="nameRecover2" class="modal-recoverPassword-name2"
+                            placeholder="Nombre" required>
+                        <input type="email" v-model="emailRecover2" class="modal-recoverEmail-email2"
+                            placeholder="Correo electrónico" required>
+                        <input type="text" v-model="temporalPassword" class="modal-temporalPassword"
+                            placeholder="Contraseña temporal (Enviada a tu correo)" required>
+                        <input type="password" v-model="newPassword" class="modal-newPassword"
+                            placeholder="Nueva contraseña" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-sm btn-outline-secondary btn-Registrarse-modal"
+                            data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" v-on:click="changePassword($event)"
+                            class="btn btn-sm btn-outline-success">Cambiar
+                            contraseña</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="confirModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="confirModalLabel">Registrate en Ecobank</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <span class="texto-registrarse-modal">Para registrarse en Ecobank indica un correo y
+                            contraseña</span>
+                        <input type="text" v-model="firstName" class="modal-register-firstname" placeholder="Nombre"
+                            required>
+                        <input type="text" v-model="lastName" class="modal-register-lastname" placeholder="Apellido"
+                            required>
+                        <input type="text" v-model="userRegisterEmail" class="modal-register-email"
+                            placeholder="Correo electrónico" required>
+                        <input type="password" v-model="userRegisterPassword" class="modal-register-password"
+                            placeholder="Contraseña" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-sm btn-outline-secondary btn-Registrarse-modal"
+                            data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" v-on:click="signUp($event)"
+                            class="btn btn-sm btn-outline-success">Registrarme</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- End Login Section -->
+
+        <!-- CurveDown -->
+        <svg id="curveDown-login" class="curveDownColor curveGrey curveDown-login" xmlns="http://www.w3.org/2000/svg" version="1.1"
+            width="100%" height="100" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <path d="M0 0 C 50 100 80 100 100 0 Z"></path>
+        </svg>
+
+        <!-- Services Section -->
+        <div class="wrap services-wrap" id="services">
+            <section class="grid grid-pad services sobreEcobank-div">
+                <h2>Sobre ecobank</h2>
+                <div class="col-1-4 service-box service-1">
+                    <div class="content">
+                        <div class="service-icon">
+                            <i class="circle-icon icon-heart4"></i>
+                        </div>
+                        <div class="service-entry">
+                            <h3>¿Quiénes somos?</h3>
+                            <p>Somos una organización que contribuye al desarrollo del sector financiero, mediante una
+                                concepción y distribución de productos y servicios innovadores
+                                y personalizados, cubriendo adecuadamente las necesidades y expectativas de los
+                                clientes,
+                                con patrones de calidad y especialización superiores, asegurando permanentemente la
+                                creación de valor para los accionistas.</p>
+                            <!--  <a class="btn read-more" href="#0">Read More</a> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-1-4 service-box service-2">
+                    <div class="content">
+                        <div class="service-icon">
+                            <i class="circle-icon icon-star4"></i>
+                        </div>
+                        <div class="service-entry">
+                            <h3>Reduce tu huella de carbono</h3>
+                            <p> La huella de carbono representa el volumen total de gases de efecto invernadero (GEI)
+                                que producen las actividades económicas y cotidianas del ser humano.</p>
+                            <a class="btn read-more"
+                                href="https://better.cl/reduce-tu-huella-acciones-concretas-para-reducir-emisiones-de-carbono-en-la-vida-diaria/">Te
+                                enseñamos</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-1-4 service-box service-3">
+                    <div class="content">
+                        <div class="service-icon">
+                            <i class="circle-icon icon-display"></i>
+                        </div>
+                        <div class="service-entry">
+                            <h3>Nuestros productos</h3>
+                            <p>Todos nuestros productos están pensandos en el cuidado de la naturaleza.</p>
+                            <a class="btn read-more" href="https://www.greenpeace.org/chile/tag/plasticos/">No más
+                                plástico</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-1-4 service-box service-4">
+                    <div class="content">
+                        <div class="service-icon">
+                            <i class="circle-icon icon-user6"></i>
+                        </div>
+                        <div class="service-entry">
+                            <h3>Eco Friendly</h3>
+                            <p>Se trata de un estilo de vida que conlleva cambiar nuestros hábitos
+                                de consumo para tratar de reducir al mínimo nuestro impacto en el planeta. </p>
+                            <a class="btn read-more"
+                                href="https://www.limpiezasrivera.com/2020/1/30/que-significa-ser-eco-friendly">Te
+                                contamos como</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <!-- End Services Section -->
+
+        <!-- CurveDown -->
+        <svg class="curveDownColor" xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100"
+            viewBox="0 0 100 100" preserveAspectRatio="none">
+            <path d="M0 0 C 50 100 80 100 100 0 Z"></path>
+        </svg>
+
+        <!-- Quotes Section -->
+        <div class="wrap services-wrap grey" id="quotes-div">
+            <section class="grid grid-pad">
+                <div class="col-1-1 service-box cl-client-carousel-container">
+                    <div class="content">
+                        <div class="cl-client-carousel">
+
+                            <div class="item client-carousel-item">
+                                <!-- Start of item -->
+                                <div class="quotes-icon">
+                                    <i class="icon-quotes-left"></i>
+                                </div>
+                                <p>"Me cambie al ECOBANK porque me gusta su rapidez y su responsabilidad con el
+                                    medioambiente" </p>
+                                <h4>-Melba Morel</h4>
+                            </div><!-- End of item -->
+
+                            <div class="item client-carousel-item">
+                                <!-- Start of item -->
+                                <div class="quotes-icon">
+                                    <i class="icon-quotes-left"></i>
+                                </div>
+                                <p>La atención es muy expedita, y dan excelentes soluciones en atención al cliente.!</p>
+                                <h4>-Fernando Castro</h4>
+                            </div><!-- End of item -->
+                            <div class="item client-carousel-item">
+                                <!-- Start of item -->
+                                <div class="quotes-icon">
+                                    <i class="icon-quotes-left"></i>
+                                </div>
+                                <p>Descubrí el ECOBANK cuando intentaba comprar mi primera casa, quedé maravillado con
+                                    sus tazas de interés, las más económicas del mercado.</p>
+                                <h4>-Marisol Meyer</h4>
+                            </div><!-- End of item -->
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <!-- End Quotes Section -->
+
+
+        <!-- CurveDown -->
+        <svg class="curveDownColor curveGrey" xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100"
+            viewBox="0 0 100 100" preserveAspectRatio="none">
+            <path d="M0 0 C 50 100 80 100 100 0 Z"></path>
+        </svg>
+
+        <!-- Parallax Section - Counter -->
+        <div class="parallax-section parallax2">
+            <div class="wrap">
+                <section class="grid grid-pad callout">
+                    <div class="col-1-3">
+                        <div class="content">
+                            <div class="info-counter">
+                                <div class="info-counter-row">
+                                    <i class="info-counter-icon icon-mug"></i>
+                                </div>
+                                <div class="info-counter-content">
+                                    <h5 class="info-counter-number">
+                                        <span class="counter">100</span>
+                                        <span class="info-counter-units">Tazas</span>
+                                    </h5>
+                                    <div class="info-counter-text">Tazas de café que compartimos en las mañanas</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-1-3">
+                        <div class="content">
+                            <div class="info-counter">
+                                <div class="info-counter-row">
+                                    <i class="info-counter-icon icon-embed"></i>
+                                </div>
+                                <div class="info-counter-content">
+                                    <h5 class="info-counter-number">
+                                        <span class="counter">500</span>
+                                        <span class="info-counter-units">Sucursales</span>
+                                    </h5>
+                                    <div class="info-counter-text">Muchas sucursales disponibles</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-1-3">
+                        <div class="content">
+                            <div class="info-counter">
+                                <div class="info-counter-row">
+                                    <i class="info-counter-icon icon-trophy"></i>
+                                </div>
+                                <div class="info-counter-content">
+                                    <h5 class="info-counter-number">
+                                        <span class="counter">1000000</span>
+                                        <span class="info-counter-units">Clientes</span>
+                                    </h5>
+                                    <div class="info-counter-text">ECO clientes felices</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <!-- End Parallax Section -->
+
+        <!-- CurveUp -->
+        <svg class="curveUpColor curveGrey" xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100"
+            viewBox="0 0 100 100" preserveAspectRatio="none">
+            <path d="M0 100 C 20 0 50 0 100 100 Z"></path>
+        </svg>
+
+        <!-- Team Section -->
+        <div class="wrap team-wrap grey" id="team">
+            <div class="grid grid-pad ecobankistas-div">
+                <div class="content">
+                    <h2>ECOBANKISTAS</h2>
+                    <div class="col-1-4">
+                        <div class="content staff-content">
+                            <div class="recent-work staff-img">
+                                <div class="img-wrap staff-img">
+                                    <img class="img-logobank" src="images/logoBank.png" alt="">
+                                    <div class="team-social">
+                                        <a class="sl-fb" href="#"><i class="icon-facebook"></i></a>
+                                        <a class="sl-tw" href="#"><i class="icon-twitter"></i></a>
+                                        <a class="sl-gp" href="#"><i class="icon-googleplus2"></i></a>
+                                        <a class="sl-ln" href="#"><i class="icon-linkedin"></i></a>
+                                    </div>
+                                </div>
+                                <div class="work-info staff-info">
+                                    <h5>ECOBANK</h5>
+                                    <span>Tu banco ecológico y económico </span>
+                                    <p>Nuestro equipo de ECOBANKISTAS.</p>
+                                    <p>Ellos siempre está disponible para brindarte la mejor atención. </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-1-4">
+                        <div class="content staff-content">
+                            <div class="recent-work staff-img">
+                                <div class="img-wrap staff-img">
+                                    <img src="images/team/user1.png" alt="">
+                                    <div class="team-social">
+                                        <a class="sl-fb" href="#"><i class="icon-facebook"></i></a>
+                                        <a class="sl-tw" href="#"><i class="icon-twitter"></i></a>
+                                        <a class="sl-gp" href="#"><i class="icon-googleplus2"></i></a>
+                                        <a class="sl-ln" href="#"><i class="icon-linkedin"></i></a>
+                                    </div>
+                                </div>
+                                <div class="work-info staff-info">
+                                    <h5>David Bell</h5>
+                                    <span>Creative Designer</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-1-4">
+                        <div class="content staff-content">
+                            <div class="recent-work staff-img">
+                                <div class="img-wrap staff-img">
+                                    <img src="images/team/user3.png" alt="">
+                                    <div class="team-social">
+                                        <a class="sl-fb" href="#"><i class="icon-facebook"></i></a>
+                                        <a class="sl-tw" href="#"><i class="icon-twitter"></i></a>
+                                        <a class="sl-gp" href="#"><i class="icon-googleplus2"></i></a>
+                                        <a class="sl-ln" href="#"><i class="icon-linkedin"></i></a>
+                                    </div>
+                                </div>
+                                <div class="work-info staff-info">
+                                    <h5>Eve Stinger</h5>
+                                    <span>Sales Manager</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-1-4">
+                        <div class="content staff-content">
+                            <div class="recent-work staff-img">
+                                <div class="img-wrap staff-img">
+                                    <img src="images/team/user4.png" alt="">
+                                    <div class="team-social">
+                                        <a class="sl-fb" href="#"><i class="icon-facebook"></i></a>
+                                        <a class="sl-tw" href="#"><i class="icon-twitter"></i></a>
+                                        <a class="sl-gp" href="#"><i class="icon-googleplus2"></i></a>
+                                        <a class="sl-ln" href="#"><i class="icon-linkedin"></i></a>
+                                    </div>
+                                </div>
+                                <div class="work-info staff-info">
+                                    <h5>Will Peters</h5>
+                                    <span>Developer</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Team Section -->
+
+        <!-- CurveUp -->
+        <svg class="curveUpColor" xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100"
+            viewBox="0 0 100 100" preserveAspectRatio="none">
+            <path d="M0 100 C 20 0 50 0 100 100 Z"></path>
+        </svg>
+
+        <!-- Clients Logos Section -->
+        <div class="wrap">
+            <div class="grid grid-pad">
+                <div class="col-1-1">
+                    <div class="content">
+                        <!-- Start of Carousel Container -->
+                        <div class="cl-logo-carousel col-sm-12">
+
+                            <div class="item">
+                                <!-- Start of item -->
+                                <a href="#">
+                                    <figure>
+                                        <img src="images/clients/1.png" alt="" />
+                                    </figure>
+                                </a>
+                            </div><!-- End of item -->
+
+                            <div class="item">
+                                <!-- Start of item -->
+                                <a href="#">
+                                    <figure>
+                                        <img src="images/clients/2.png" alt="" />
+                                    </figure>
+                                </a>
+                            </div><!-- End of item -->
+
+                            <div class="item">
+                                <!-- Start of item -->
+                                <a href="#">
+                                    <figure>
+                                        <img src="images/clients/3.png" alt="" />
+                                    </figure>
+                                </a>
+                            </div><!-- End of item -->
+
+                            <div class="item">
+                                <!-- Start of item -->
+                                <a href="#">
+                                    <figure>
+                                        <img src="images/clients/4.png" alt="" />
+                                    </figure>
+                                </a>
+                            </div><!-- End of item -->
+
+                            <div class="item">
+                                <!-- Start of item -->
+                                <a href="#">
+                                    <figure>
+                                        <img src="images/clients/5.png" alt="" />
+                                    </figure>
+                                </a>
+                            </div><!-- End of item -->
+
+                            <div class="item">
+                                <!-- Start of item -->
+                                <a href="#">
+                                    <figure>
+                                        <img src="images/clients/1.png" alt="" />
+                                    </figure>
+                                </a>
+                            </div><!-- End of item -->
+
+                            <div class="item">
+                                <!-- Start of item -->
+                                <a href="#">
+                                    <figure>
+                                        <img src="images/clients/2.png" alt="" />
+                                    </figure>
+                                </a>
+                            </div><!-- End of item -->
+
+                            <div class="item">
+                                <!-- Start of item -->
+                                <a href="#">
+                                    <figure>
+                                        <img src="images/clients/3.png" alt="" />
+                                    </figure>
+                                </a>
+                            </div><!-- End of item -->
+
+                        </div>
+                        <!-- End of Carousel Container -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Clients Logos Section -->
+
+        <!-- CurveDown -->
+        <svg class="curveDownColor curveMapUp" xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%"
+            height="100" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <path d="M0 0 C 50 100 80 100 100 0 Z"></path>
+        </svg>
+
+        <!-- Parallax Section -->
+        <div class="curveMapUpDiv">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2353.8287929025073!2d-70.69008645854973!3d-33.45408432338944!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662c4f596c8defd%3A0x6eb75b35afd1026e!2sAv%20Libertador%20Bernardo%20O&#39;Higgins%203895%2C%20Santiago%2C%20Estaci%C3%B3n%20Central%2C%20Regi%C3%B3n%20Metropolitana!5e0!3m2!1ses-419!2scl!4v1647890927239!5m2!1ses-419!2scl"
+                width="auto" height="600" style="border:0;" allowfullscreen="false" loading="lazy"></iframe>
+        </div>
+
+        <!-- End Parallax Section -->
+
+        <!-- CurveUp -->
+        <svg class="curveUpColor curveMapDown" xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%"
+            height="100" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <path d="M0 100 C 20 0 50 0 100 100 Z"></path>
+        </svg>
+
+        <!-- Contact Section
+        Voy a cambiar este ID porque genera conflicto con otro-->
+        <div class="wrap contact" id="newContact">
+            <div class="grid grid-pad">
+                <h2>Contactanos</h2>
+                <div class="col-1-2">
+                    <div class="content address">
+                        <h3>Hablemos</h3>
+                        <p>Si tienes alguna duda, dejanos tus datos y un ejecutivo se comunicará contigo.</p>
+                        <address>
+                            <div>
+                                <div class="box-icon">
+                                    <i class="icon-location"></i>
+                                </div>
+                                <span>Dirección:</span>
+                                <p>Casa Matriz, Av Libertador Bernardo O'Higgins 36 0 Santiago, Región Metropolitana.
+                                </p>
+                            </div>
+
+                            <div>
+                                <div class="box-icon">
+                                    <i class="icon-clock"></i>
+                                </div>
+                                <span>Horario de atención:</span>
+                                <p>Lunes a Viernes 08:00 a 16:00 horas</p>
+                            </div>
+
+                            <div>
+                                <div class="box-icon">
+                                    <i class="icon-phone"></i>
+                                </div>
+                                <span>Telefono:</span>
+                                <p>600 600 8600</p>
+                            </div>
+                        </address>
+                    </div>
+                </div>
+                <div class="col-1-2 pleft-25">
+                    <div class="content contact-form">
+                        <div v-if="contactoEnviado == false">
+                            <form class="form">
+                                <input type="text" v-model="fullNameContact" class="comment-name"
+                                    placeholder="Juan Pablo Riquelme" required>
+                                <input type="email" v-model="emailContact" class="comment-email"
+                                    placeholder="Juanpablo@gmail.com" required>
+                                <input type="text" v-model="subjectContact" class="comment-subject"
+                                    placeholder="Asunto">
+                                <textarea class="required comment-text" v-model="textContact"
+                                    placeholder="Quiero que me contacten..." required></textarea>
+                                <button type="button" v-on:click="contacto($event)"
+                                    class="btn submit comment-submit">Enviar</button>
+                            </form>
+                        </div>
+                        <div v-else>
+                            <div class="alert alert-success">
+                                <strong>¡Gracias!</strong> Tu mensaje ha sido enviado.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Contact Section -->
+
+        <!-- CurveDown -->
+        <svg class="curveDownColor" xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100"
+            viewBox="0 0 100 100" preserveAspectRatio="none">
+            <path d="M0 0 C 50 100 80 100 100 0 Z"></path>
+        </svg>
+
+        <!-- Footer -->
+        <footer class="wrap">
+            <div class="grid grid-pad">
+                <div class="col-1-4">
+                    <div class="content">
+                        <div class="footer-widget">
+                            <h3>Acerca de nosotros</h3>
+                            <div class="textwidget">
+                                <p>ECOBANK tu alternativa Ecológica y económica.</p><br>
+                                <p>Somos el banco que piensa en las personas y en el medioambiente.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-1-4">
+                    <div class="content">
+                        <div class="footer-widget">
+                            <h3>Sitios de interés</h3>
+                            <div class="fwidget">
+                                <ul>
+                                    <li><a href="https://www.cmfchile.cl/educa/621/w3-propertyvalue-967.html">Educación
+                                            financiera</a></li>
+                                    <li><a href="https://datosmacro.expansion.com/">Datos Macro</a></li>
+                                    <li><a href="https://www.bolsadesantiago.com/">Bolsa de Santiago</a></li>
+                                    <li><a href="https://www.df.cl/">Diario financiero</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-1-4">
+                    <div class="content">
+                        <div class="footer-widget">
+                            <h3>Política de Privacidad y Uso.</h3>
+                            <div class="textwidget">
+                                <p> Defensoría del Cliente. BancoEstado cuenta con un Plan de Cumplimiento de la Ley
+                                    N°19.496, el cual establece Normas sobre Protección de los Derechos de los
+                                    Consumidores, conocida también como Ley del Consumidor o Ley SERNAC.</p>
+                                <br>
+                                <p> Infórmese sobre la garantía estatal de los depósitos en su Banco o en
+                                    www.cmfchile.cl. </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-1-4">
+                    <div class="content">
+                        <div class="footer-widget">
+                            <h3>ECOBANK</h3>
+                            <div class="flickr-widget">
+                                <ul class="flickr-list">
+                                    <li><a href="#0"><img src="images/flickr-widget/banco1.gif" alt=""></a></li>
+                                    <li><a href="#0"><img src="images/flickr-widget/banco7.jpg" alt=""></a></li>
+                                    <li><a href="#0"><img src="images/flickr-widget/banco4.jpg" alt=""></a></li>
+                                    <li><a href="#0"><img src="images/flickr-widget/banco5.jpg" alt=""></a></li>
+                                    <li><a href="#0"><img src="images/flickr-widget/banco6.jpg" alt=""></a></li>
+                                    <li><a href="#0"><img src="images/flickr-widget/banco-comercial.jpg" alt=""></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="social-footer">
+                <div class="grid grid-pad">
+                    <div class="col-1-1">
+                        <div class="content">
+                            <div class="social-set">
+                                <a href="#0"><i class="icon-facebook"></i></a>
+                                <a href="#0"><i class="icon-twitter"></i></a>
+                                <a href="#0"><i class="icon-linkedin2"></i></a>
+                                <a href="#0"><i class="icon-dribbble4"></i></a>
+                                <a href="#0"><i class="icon-instagram"></i></a>
+                            </div>
+                            <p class="source-org copyright">© 2022 | Todos los derechos reservados <a
+                                    href="http://templatestock.co">ECOBANK</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- End Footer -->
+        <div class="loader-overlay">
+            <div class="loader">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        </div>
+
+    </body>
+</div>
+<!-- JS -->
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
+<script src="../js/index.js"></script>
+<script src="js/jquery.js"></script>
+<script src="js/main.js"></script>
+<script src="js/mixitup.js"></script>
+<script src="js/smoothscroll.js"></script>
+
+<script src="js/owl-carousel/owl.carousel.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
+<script src="js/jquery.counterup.min.js"></script>
+<script src="js/lightcase.min.js"></script>
+<script src="js/jquery.nav.js"></script>
+
+</html>
