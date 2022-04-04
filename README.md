@@ -12,6 +12,8 @@ Cuenta con las siguientes funcionalidades
 
 https://homebanking-ecobank.herokuapp.com
 
+pueden ingresar con usuario de prueba
+correo: melba@mindhub.com
+pass: holahola123
 
-
-
+el servicio de notificaciones por correo no esta habilitado ya que se usa un servicio gmail que se bloquea al intentar logearse desde un una ubicacion no segura
